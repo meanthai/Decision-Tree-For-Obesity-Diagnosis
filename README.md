@@ -14,7 +14,12 @@ Step 4: Thực hiện chạy chương trình trên Visual Code Studio.
 
 Step 5: kết quả về độ chính xác (Accuracy) sẽ được hiển thị trên màn hình Terminal.
 
+* Thử riêng test-case theo ý muốn:
+  Hãy thay đổi các đặc tính như Gender (giới tính), Weight (cân nặng) và Height (Chiều cao) ở trong format testcase ở phần Python Code theo ý muốn để thử chẩn đoán bệnh nhân.
+  ![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/5236aa93-1dfe-47c5-8c8e-5a4a6b54b7ad)
+
+
 # Source
-Đây là đồ án môn Cấu trúc Dữ liệu và Giải thuật của Hoàng Minh Thái - MSSV: 23521414.
+Đây là đồ án môn Cấu trúc Dữ liệu và Giải thuật của sinh viên Hoàng Minh Thái - MSSV: 23521414.
 
 This is the project of Data Structures and Algorithms by Hoang Minh Thai - MSSV: 23521414.
