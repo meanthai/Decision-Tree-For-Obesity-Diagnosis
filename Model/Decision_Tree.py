@@ -1,11 +1,56 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import itertools
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report
+from sklearn import tree
+
+def PCA(X):
+    '''
+    Hàm PCA có chức năng giảm chiều dữ liệu bằng các loại bỏ các đặc trưng gây nhiễu
+    '''
+    num_components = 0
+    
+    #Step-1: Apply normalization method
+    # Scaling data using Z-score normalization
+    scaler = StandardScaler()
+    X_meaned = scaler.fit_transform(X)
+    
+    #Step-2: Creating covariance matrix
+    cov_mat = np.cov(X_meaned, rowvar = False)
+     
+    #Step-3: Calculating eigen values and eigen vectors
+    eigen_values , eigen_vectors = np.linalg.eigh(cov_mat)
+     
+    #Step-4: Sorting the eigen vectors in descending order based on the eigen values
+    sorted_index = np.argsort(eigen_values)[::-1]
+    sorted_eigenvalue = eigen_values[sorted_index]
+    sorted_eigenvectors = eigen_vectors[:,sorted_index]
+    total = sum(eigen_values)
+    var_exp = [( i /total ) * 100 for i in sorted_eigenvalue]
+    cum_var_exp = np.cumsum(var_exp)
+    for ite, percentage in enumerate(cum_var_exp):
+        if percentage >= 95: # Take the features that make the variance percentage over 95%
+            num_components = ite
+            # print(ite)
+            break
+    # print("percentage of cummulative variance per eigenvector in order: ", cum_var_exp)
+         
+    #Step-5: Extracting the final dataset after applying dimensionality reduction
+    eigenvector_subset = sorted_eigenvectors[:, : num_components]
+     
+    #Step-6:Transforming the processed matrix
+    X_reduced = np.dot(eigenvector_subset.transpose() , X_meaned.transpose() ).transpose()
+     
+    return X_reduced
 
 def gini_impurity(y):
     '''
-    Calculating the gini index for determining the impurity
+    Calculating the gini index for determining the impurity of data
+    Hàm tính giá trị Gini Index để xác định độ nhiễu của dữ liệu thuộc một class
     '''
     p = y.value_counts() / y.shape[0] # The number of unique values divided by the total number of elements
     gini = 1 - np.sum(p ** 2) # Gini_index formula
@@ -14,7 +59,8 @@ def gini_impurity(y):
 
 def entropy(y):
     '''
-    Calculating the entrophy value for determining the impurity
+    Calculating the entropy value for determining the impurity of data
+    Hàm tính giá trị Entropy để xác định độ nhiễu của dữ liệu thuộc một class
     '''
     a = y.value_counts() / y.shape[0]
     print(a)
@@ -25,6 +71,7 @@ def entropy(y):
 def variance(y):
     '''
     Calculate the variance avoiding nan.
+    Hàm tính phương sai của một ma trận.
     '''
     if(len(y) == 1):
         return 0
@@ -35,7 +82,9 @@ def variance(y):
 def information_gain(y, mask, func=entropy):
     '''
     Calculating the Information Gain of a variable given a loss function.
-    Using either entrophy function or gini_impurity function
+    Using either entrophy function or gini_impurity function.
+    Hàm tính giá trị thông tin biết trước giá trị mất mát (loss value) của một vector hoặc một ma trận.
+    Có thử sử dụng một trong hai hàm tính toán độ nhiễu thông tin entropy hoặc Gini Index.
     '''
     a = sum(mask)
     b = mask.shape[0] - a
@@ -53,7 +102,9 @@ def information_gain(y, mask, func=entropy):
 
 def categorical_options(a):
     '''
-    Creates all possible combinations to compare the impurity
+    Creates all possible combinations to compare the impurity.
+    Hàm có chức năng sinh ra tất cả các hoán vị có độ dài từ 1 tới len(a) bao gồm các phần tử trong vector hoặc matrix a.
+    Mục đích của hàm này là sinh hoán vị và so sánh độ nhiễu thông tin.
     '''
     a = a.unique()
 
@@ -68,7 +119,8 @@ def categorical_options(a):
 
 def max_information_gain_split(x, y, func=entropy):
     '''
-    Get the best split based on the maximum information gain value
+    Get the best split based on the maximum information gain value.
+    Hàm lấy nút để chia tốt nhất đem lại giá trị thông tin cao nhất.
     '''
     split_value = []
     ig = [] 
@@ -102,6 +154,7 @@ def max_information_gain_split(x, y, func=entropy):
 def get_best_split(y, data):
     '''
     Given a data, select the best split and return the variable, the value, the variable type and the information gain.
+    Dựa vào dữ liệu, hàm sẽ cách chia đem lại giá trị thông tin cao nhất và trả về các giá trị, mảng.
     '''
     masks = data.drop(y, axis= 1).apply(max_information_gain_split, y = data[y])
     if sum(masks.loc[3,:]) == 0:
@@ -123,6 +176,7 @@ def get_best_split(y, data):
 def make_split(variable, value, data, is_numeric):
     '''
     Given a data and a split conditions, do the split.
+    Hàm thực hiện chia dữ liệu.
     '''
     if is_numeric:
         branch_1 = data[data[variable] < value]
@@ -137,6 +191,7 @@ def make_split(variable, value, data, is_numeric):
 def make_prediction(data, target_factor):
     '''
     Given the target variable, make a prediction.
+    Hàm dự đoán một mẫu bất kì, có thể có trong tập dữ liệu.
     '''
     # Make predictions
     if target_factor:
@@ -149,9 +204,9 @@ def make_prediction(data, target_factor):
 def train_tree(data, y, target_factor, max_depth = None,min_samples_split = None, min_information_gain = 1e-20, counter=0, max_categories = 20):
     '''
     Trains a Decission Tree
-    slow down learning process. R
+    slow down learning process.
+    Hàm thực hiện quá trình huấn luyện mô hình máy học sử dụng thuật toán Decision Tree
     '''
-    # Check that max_categories is fulfilled
     if counter==0:
       types = data.dtypes
       check_columns = types[types == "object"].index
@@ -160,7 +215,6 @@ def train_tree(data, y, target_factor, max_depth = None,min_samples_split = None
         if var_length > max_categories:
           raise ValueError('The variable ' + column + ' has '+ str(var_length) + ' unique values, which is more than the accepted ones: ' +  str(max_categories))
 
-    # Check for depth conditions
     if max_depth == None:
       depth_cond = True
     else:
@@ -169,7 +223,6 @@ def train_tree(data, y, target_factor, max_depth = None,min_samples_split = None
       else:
         depth_cond = False
 
-    # Check for sample conditions
     if min_samples_split == None:
       sample_cond = True
     else:
@@ -178,21 +231,16 @@ def train_tree(data, y, target_factor, max_depth = None,min_samples_split = None
       else:
         sample_cond = False
 
-    # Check for ig condition
     if depth_cond & sample_cond:
       var,val,ig,var_type = get_best_split(y, data)
-      # If ig condition is fulfilled, make split 
       if ig is not None and ig >= min_information_gain:
         counter += 1
         left,right = make_split(var, val, data,var_type)
 
-        # Instantiate sub-tree
         split_type = "<=" if var_type else "in"
         question =   "{} {}  {}".format(var,split_type,val)
-        # question = "\n" + counter*" " + "|->" + var + " " + split_type + " " + str(val) 
         subtree = {question: []}
 
-        # Find answers (recursion)
         yes_answer = train_tree(left,y, target_factor, max_depth,min_samples_split,min_information_gain, counter)
         no_answer = train_tree(right,y, target_factor, max_depth,min_samples_split,min_information_gain, counter)
 
@@ -202,12 +250,10 @@ def train_tree(data, y, target_factor, max_depth = None,min_samples_split = None
           subtree[question].append(yes_answer)
           subtree[question].append(no_answer)
 
-      # If it doesn't match IG condition, make prediction
       else:
         pred = make_prediction(data[y],target_factor)
         return pred
 
-    # Drop dataset if doesn't match depth or sample conditions
     else:
       pred = make_prediction(data[y],target_factor)
       return pred
@@ -215,8 +261,10 @@ def train_tree(data, y, target_factor, max_depth = None,min_samples_split = None
     return subtree
 
 
-# Binary Classification Function whether a person checked is obese or not
 def clasificar_datos(observacion, arbol):
+    '''
+    Hàm xử lý cấu trúc của cây dưới dạng string để đưa về dạng số so sánh và trả về dự đoán.
+    '''
     question = list(arbol.keys())[0] 
 
     if question.split()[1] == '<=':
@@ -231,7 +279,6 @@ def clasificar_datos(observacion, arbol):
       else:
         answer = arbol[question][1]
 
-    # If the answer is not a dictionary
     if not isinstance(answer, dict):
       return answer
     else:
@@ -240,24 +287,43 @@ def clasificar_datos(observacion, arbol):
 
 
 def evaluation(X, y, dtree):
-    key = [] # Store the predicted labels
+    key = [] 
     for i in range(X.shape[0]):
       key.append(clasificar_datos(X.iloc[i], dtree))
     
     return np.mean(key == y)
     
 
+# Nhập vào dữ liệu theo đường dẫn tập dữ liệu đã tải về.
 data = pd.read_csv("C:\\Users\\acer\\Downloads\\obese_Dataset\\500_Person_Gender_Height_Weight_Index.csv")
-# Preprocessing dataset
+# Tiền xử lý dữ liệu
 data['obese'] = (data.Index >= 4).astype('int')
 data.drop('Index', axis = 1, inplace = True)
+data['Gender'] = np.where(data['Gender'] == 'Male', 1, 0) # Chuyển đổi labels dạng text về dạng số
+X = data.iloc[: , : 3]
+y = data.iloc[:, 3]
 
+# Thực hiện chia tập dữ liệu thành hai tập trainingset để huấn luyện và validationset để đánh giá với tỉ lệ lần lượt là 8:2
 train_data, test_data = train_test_split(data, test_size=0.2, random_state=42)
 
+# Huấn luyện mô hình, mô hình trả về có dạng cây nhị phân được viết dưới format String
 dtree = train_tree(train_data, 'obese', True, max_depth = 4, min_samples_split = 10, min_information_gain = 1e-5)
 X = test_data.iloc[:, :-1]
 y = test_data.iloc[:, -1].values
 
+# Đánh giá mô hình
+print("Tree after training has a form as: ", dtree)
 print("The accuracy of the Decision tree AI model: ", evaluation(X, y, dtree))
+
+test_case = pd.DataFrame({
+    'Gender': [0], # 0 là nữ (Female) và 1 là nam (Male)
+    'Height': [150],
+    'Weight': [110]
+})
+
+test_prediction = clasificar_datos(test_case.iloc[0], dtree)
+test_prediction = np.where(test_prediction == 1, "The given person is obese", "The given person is normal")
+print(test_prediction)
+
 
 
