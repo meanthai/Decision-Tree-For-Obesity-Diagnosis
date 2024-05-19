@@ -10,9 +10,9 @@ Step 2: Lấy code đã được xây dựng sẵn ở file Decision_Tree.py thu
 
 Step 3: Copy đường dẫn tới file tập dữ liệu Dataset_500_Person_Gender_Height_Weight_Index.csv vào function read_csv
 
-Step 2: Thực hiện chạy chương trình trên Visual Code Studio.
+Step 4: Thực hiện chạy chương trình trên Visual Code Studio.
 
-Step 3: kết quả về độ chính xác (Accuracy) sẽ được hiển thị trên màn hình Terminal.
+Step 5: kết quả về độ chính xác (Accuracy) sẽ được hiển thị trên màn hình Terminal.
 
 # Source
 Đây là đồ án môn Cấu trúc Dữ liệu và Giải thuật của Hoàng Minh Thái - MSSV: 23521414.
