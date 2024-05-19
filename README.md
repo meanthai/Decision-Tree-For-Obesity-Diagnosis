@@ -16,6 +16,7 @@ Step 5: kết quả về độ chính xác (Accuracy) sẽ được hiển thị
 
 * Thử riêng test-case theo ý muốn:
   Hãy thay đổi các đặc tính như Gender (giới tính), Weight (cân nặng) và Height (Chiều cao) ở trong format testcase ở phần Python Code theo ý muốn để thử chẩn đoán bệnh nhân.
+  
   ![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/5236aa93-1dfe-47c5-8c8e-5a4a6b54b7ad)
 
 
