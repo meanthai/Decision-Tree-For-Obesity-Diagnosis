@@ -24,7 +24,8 @@ Mô hình sau khi training đạt độ chính xác cao với 93% cho tập test
 
 The model after training reached up to 93% accuracy.
 
-![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/0820186c-898d-40d3-a9de-0e2cf20775d4)
+![Uploading image.png…]()
+
 
 
 # Source
