@@ -19,6 +19,13 @@ Step 5: kết quả về độ chính xác (Accuracy) sẽ được hiển thị
   
   ![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/5236aa93-1dfe-47c5-8c8e-5a4a6b54b7ad)
 
+# Result (kết quả):
+Mô hình sau khi training đạt độ chính xác cao với 93% cho tập testing set.
+
+The model after training reached up to 93% accuracy.
+
+![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/9b98454a-72e6-4a11-b724-7f0f2f85a60a)
+
 
 # Source
 Đây là đồ án môn Cấu trúc Dữ liệu và Giải thuật của sinh viên Hoàng Minh Thái - MSSV: 23521414.
