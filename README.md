@@ -4,6 +4,8 @@ Mô hình máy học dựa trên thuật toán Decision Tree để phục vụ v
 The Decision-Tree based AI model built from scratch for the task of Obesity medical Diagnosis. 
 
 # Guide step by step (Hướng dẫn sử dụng mô hình AI dùng thuật toán Decision Tree)
+Step 1: Tải tập dữ liệu 
+
 Step 1: Lấy code đã được xây dựng sẵn ở file Decision_Tree.py thuộc thư mục Model.
 
 Step 2: Thực hiện chạy chương trình trên Visual Code Studio.
