@@ -247,6 +247,9 @@ def clasificar_datos(observacion, arbol):
 
 
 def evaluation(X, y, dtree):
+    '''
+    Hàm đánh giá mô hình sau khi training thông qua việc dự đoán tập test-set
+    '''
     key = [] 
     for i in range(X.shape[0]):
         key.append(clasificar_datos(X.iloc[i], dtree))
