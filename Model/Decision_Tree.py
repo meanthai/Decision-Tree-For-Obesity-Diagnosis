@@ -1,8 +1,11 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 import itertools
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
+
 
 def gini_impurity(y):
     '''
@@ -246,9 +249,30 @@ def clasificar_datos(observacion, arbol):
 def evaluation(X, y, dtree):
     key = [] 
     for i in range(X.shape[0]):
-      key.append(clasificar_datos(X.iloc[i], dtree))
+        key.append(clasificar_datos(X.iloc[i], dtree))
     
     return np.mean(key == y)
+  
+
+def plot_accuracy_vs_depth(train_data, y_column, test_data, max_depth_range):
+    '''
+    Hàm dựng biểu đồ dạng đường cho thấy độ chính xác của Cây quyết định qua các dự đoán tăng dần với chiều sâu của cây
+    '''
+    accuracies = []
+    for depth in max_depth_range:
+        dtree = train_tree(train_data, y_column, True, max_depth=depth, min_samples_split=10, min_information_gain=1e-5)
+        X_test = test_data.iloc[:, :-1]
+        y_test = test_data.iloc[:, -1].values
+        accuracy = evaluation(X_test, y_test, dtree)
+        accuracies.append(accuracy)
+    
+    plt.figure(figsize=(10, 7))
+    plt.plot(max_depth_range, accuracies, marker='o', linestyle='-')
+    plt.xlabel('Tree Depth')
+    plt.ylabel('Accuracy')
+    plt.title('Accuracy of the predicting results')
+    plt.grid(True)
+    plt.show()
     
 
 # Nhập vào dữ liệu theo đường dẫn tập dữ liệu đã tải về.
@@ -272,6 +296,10 @@ y = test_data.iloc[:, -1].values
 print("Tree after training has a form as: ", dtree)
 print("The accuracy of the Decision tree AI model: ", evaluation(X, y, dtree))
 
+# Dựng biểu đồ 
+max_depth_range = range(1, 11)
+plot_accuracy_vs_depth(train_data, 'obese', test_data, max_depth_range)
+
 test_case = pd.DataFrame({
     'Gender': [0], # 0 là nữ (Female) và 1 là nam (Male)
     'Height': [150],
@@ -281,6 +309,3 @@ test_case = pd.DataFrame({
 test_prediction = clasificar_datos(test_case.iloc[0], dtree)
 test_prediction = np.where(test_prediction == 1, "The given person is obese", "The given person is normal")
 print(test_prediction)
-
-
-
