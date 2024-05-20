@@ -19,16 +19,17 @@ Step 5: kết quả về độ chính xác (Accuracy) cũng như biểu đồ đ
   
   ![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/5236aa93-1dfe-47c5-8c8e-5a4a6b54b7ad)
 
-* Biểu đồ đường thể hiện độ chính xác của mô hình AI Cây quyết định:
-
-![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/0b54a732-671c-417b-80fc-c377f51e81b1)
-
 # Result (kết quả):
 Mô hình sau khi training đạt độ chính xác cao với 93% cho tập testing set.
 
 The model after training reached up to 93% accuracy.
 
 ![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/e1a6af7d-1ebb-4641-b603-f931913f00fe)
+
+* Biểu đồ đường thể hiện độ chính xác của mô hình AI Cây quyết định:
+
+  ![image](https://github.com/meanthai/Decision-Tree-For-Obesity-Diagnosis/assets/147926426/1a6a3f33-0772-436e-b3e3-0b9200a9ff94)
+
 
 
 
