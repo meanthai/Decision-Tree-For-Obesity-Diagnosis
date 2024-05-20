@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import itertools
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report
 
 
 def gini_impurity(y):
