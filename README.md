@@ -8,7 +8,7 @@ Step 1: Tải tập dữ liệu Dataset_500_Person_Gender_Height_Weight_Index.cs
 
 Step 2: Lấy code đã được xây dựng sẵn ở file Decision_Tree.py thuộc thư mục Model.
 
-Step 3: Copy đường dẫn tới file tập dữ liệu Dataset_500_Person_Gender_Height_Weight_Index.csv vào function read_csv
+Step 3: Copy đường dẫn tới file tập dữ liệu Dataset_500_Person_Gender_Height_Weight_Index.csv (trong máy Local ở mục đã tải tập dữ liệu về) vào function read_csv
 
 Step 4: Thực hiện chạy chương trình trên Visual Code Studio.
 
