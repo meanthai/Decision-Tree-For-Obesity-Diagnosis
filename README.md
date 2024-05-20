@@ -12,7 +12,7 @@ Step 3: Copy đường dẫn tới file tập dữ liệu Dataset_500_Person_Gen
 
 Step 4: Thực hiện chạy chương trình trên Visual Code Studio.
 
-Step 5: kết quả về độ chính xác (Accuracy) sẽ được hiển thị trên màn hình Terminal.
+Step 5: kết quả về độ chính xác (Accuracy) cũng như biểu đồ đường sẽ được hiển thị trên màn hình Terminal sau vài giây trong lúc mô hình đang được huấn luyện.
 
 * Thử riêng test-case theo ý muốn:
   Hãy thay đổi các đặc tính như Gender (giới tính), Weight (cân nặng) và Height (Chiều cao) ở trong format testcase ở phần Python Code theo ý muốn để thử chẩn đoán bệnh nhân.
