@@ -1,7 +1,7 @@
 # Decision-Tree-For-Obesity-Diagnosis
-Mô hình máy học dựa trên thuật toán Decision Tree để phục vụ việc chẩn đoán bệnh béo phì trong y học.
+Mô hình máy học dựa trên thuật toán Decision Tree được xây dựng không dùng thư viện "sklearn" để phục vụ việc chẩn đoán bệnh béo phì trong y học.
 
-The Decision-Tree based AI model built from scratch for the task of Obesity medical Diagnosis. 
+The Decision-Tree based AI model built from scratch without using sklearn library for the task of Obesity medical Diagnosis. 
 
 # Guide step by step (Hướng dẫn sử dụng mô hình AI dùng thuật toán Decision Tree)
 Step 1: Tải tập dữ liệu Dataset_500_Person_Gender_Height_Weight_Index.csv về máy.
